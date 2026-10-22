@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171d31">
+  <meta name="description" content="A playful field journal for curious minds. Catch ideas, follow rabbit holes, and turn a few into real things.">
+  <meta property="og:title" content="Rabbit Hole Radar">
+  <meta property="og:description" content="Where will your curiosity take you?">
+  <title>Rabbit Hole Radar — your curiosity field journal</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Rabbit Hole Radar home">
+      <span class="brand-mark" aria-hidden="true">🐇</span>
+      <span>rabbit hole <strong>radar</strong><small>personal curiosity field journal</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Main navigation">
+      <button class="nav-link active" data-view="dashboard">My radar</button>
+      <button class="nav-link" data-view="explore">All explorations</button>
+      <button class="nav-link" data-action="surprise">Surprise me <span aria-hidden="true">↗</span></button>
+    </nav>
+    <button class="button button-coral header-add" data-action="new">＋ <span>Add a rabbit hole</span></button>
+  </header>
+
+  <main id="main" class="page-shell">
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <section id="dashboard-view" class="view">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-star">✦</span> FIELD JOURNAL <span class="eyebrow-divider">/</span> ENTRY <span id="entry-count">00</span></p>
+          <h1>Where will your <em>curiosity</em> take you?</h1>
+          <p class="hero-description">Catch the weird questions. Chase the good ones. Turn a few into real things.</p>
+          <div class="hero-actions">
+            <button class="button button-coral button-large" data-action="new">＋ Add a rabbit hole</button>
+            <button class="button button-outline button-large" data-action="surprise">🎲 Surprise me</button>
+          </div>
+          <div class="hero-note"><span class="pulse-dot"></span> A little room for your next big rabbit hole.</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="planet planet-big"></div><div class="planet planet-small"></div>
+          <span class="star star-one">✦</span><span class="star star-two">✧</span><span class="star star-three">✦</span>
+          <div class="rabbit-illustration">🐇</div>
+          <div class="hole-label">UNKNOWN<br><span>↓</span></div>
+          <div class="art-caption">follow the question</div>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Your exploration stats">
+        <article class="stat-card"><div class="stat-top"><span>Active explorations</span><span class="stat-icon">🔭</span></div><p id="stat-active" class="stat-value teal">0</p><p class="stat-foot">Currently out exploring</p></article>
+        <article class="stat-card"><div class="stat-top"><span>Ideas saved</span><span class="stat-icon">💡</span></div><p id="stat-ideas" class="stat-value gold">0</p><p class="stat-foot">Curiosity caught in a jar</p></article>
+        <article class="stat-card"><div class="stat-top"><span>Projects completed</span><span class="stat-icon">🏁</span></div><p id="stat-completed" class="stat-value mint">0</p><p class="stat-foot">Look at you go</p></article>
+        <article class="stat-card"><div class="stat-top"><span>Learning hours</span><span class="stat-icon">⏳</span></div><p id="stat-hours" class="stat-value coral">0</p><p class="stat-foot">Time well spent</p></article>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading"><div><p class="eyebrow">YOUR NOTEBOOK</p><h2>Current explorations <span class="heading-spark">✳</span></h2></div><button class="text-link" data-view="explore">See all explorations <span>→</span></button></div>
+        <div id="current-grid" class="idea-grid"></div>
+      </section>
+
+      <section class="bottom-strip">
+        <div><span class="strip-icon">🧭</span><div><strong>Your journal, your rules.</strong><p>Try a new direction, change your mind, or start fresh.</p></div></div>
+        <div class="strip-actions"><button class="button button-quiet" data-action="load-samples">Reload sample ideas</button><button class="button button-quiet danger-text" data-action="clear">Clear my journal</button></div>
+      </section>
+    </section>
+
+    <section id="explore-view" class="view" hidden>
+      <div class="page-heading"><p class="eyebrow">THE WHOLE MAP</p><h1>All rabbit holes <span class="heading-spark">✳</span></h1><p>Every question you've caught, all in one place.</p></div>
+      <div class="filter-panel">
+        <label class="search-field"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search titles, notes, discoveries…" autocomplete="off"></label>
+        <label class="filter-control"><span>Category</span><select id="category-filter"><option value="All">All categories</option></select></label>
+        <label class="filter-control"><span>Status</span><select id="status-filter"><option value="All">All statuses</option><option>Idea</option><option>Exploring</option><option>Building</option><option>Completed</option></select></label>
+        <label class="filter-control"><span>Sort by</span><select id="sort-filter"><option value="updated">Recently updated</option><option value="newest">Newest first</option><option value="title">Title A–Z</option></select></label>
+        <button id="favorite-filter" class="button button-outline filter-favorite" aria-pressed="false">☆ Favorites</button>
+      </div>
+      <p id="results-count" class="results-count"></p>
+      <div id="all-grid" class="idea-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>Made for the gloriously curious.</span><span class="footer-mark">✦ &nbsp; RABBIT HOLE RADAR &nbsp; ✦</span><span id="save-status">Changes saved in this browser</span></footer>
+
+  <dialog id="idea-dialog" class="idea-dialog" aria-labelledby="dialog-title">
+    <div id="dialog-content"></div>
+  </dialog>
+  <dialog id="surprise-dialog" class="idea-dialog surprise-dialog" aria-labelledby="surprise-title">
+    <button class="dialog-close" data-action="close-dialog" aria-label="Close">×</button>
+    <div class="surprise-compass" aria-hidden="true">✥</div>
+    <p class="eyebrow">A MESSAGE FROM THE UNIVERSE</p>
+    <h2 id="surprise-title">A new trail to follow</h2>
+    <div id="surprise-content"></div>
+    <div class="dialog-actions"><button class="button button-coral" data-action="save-suggestion">Save to my radar ↗</button><button class="button button-outline" data-action="another-suggestion">Try another</button></div>
+  </dialog>
+</body>
+</html>
