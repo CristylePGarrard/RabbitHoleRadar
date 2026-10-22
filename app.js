@@ -76,7 +76,6 @@ function cardHTML(idea, index) {
     <div class="card-meta"><span>${Math.round(idea.progress || 0)}% charted</span><span>${taskLabel}</span></div>
     ${progressBar(idea.progress)}
     <div class="card-bottom"><span>Updated ${escapeHTML(dateLabel(idea.updatedAt))}</span><button data-action="favorite" data-id="${escapeHTML(idea.id)}" aria-label="${idea.favorite ? "Remove favorite" : "Add favorite"}" aria-pressed="${Boolean(idea.favorite)}">${idea.favorite ? "★ Saved" : "☆ Favorite"}</button><button data-action="open-idea" data-id="${escapeHTML(idea.id)}">Open ↗</button></div>
-    <button class="card-open-overlay" data-action="open-idea" data-id="${escapeHTML(idea.id)}" aria-label="Open ${escapeHTML(idea.title)}"></button>
   </article>`;
 }
 
@@ -326,6 +325,7 @@ document.addEventListener("submit", async event => {
       const idea = findIdea(state.activeId);
       if (!idea) return;
       Object.assign(idea, values, { progress: values.status === "Completed" ? 100 : idea.progress, updatedAt: Date.now() });
+      state.mode = "detail";
       persist();
       render();
       renderDetail();
