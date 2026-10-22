@@ -297,8 +297,6 @@ document.addEventListener("click", event => {
   if (viewButton) { setView(viewButton.dataset.view); return; }
   const actionButton = event.target.closest("[data-action]");
   if (actionButton) { handleAction(actionButton); return; }
-  const overlay = event.target.closest(".card-open-overlay");
-  if (overlay) handleAction(overlay);
 });
 
 document.addEventListener("submit", async event => {
