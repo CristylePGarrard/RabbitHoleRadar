@@ -71,7 +71,7 @@ function cardHTML(idea, index) {
   const taskLabel = idea.tasks.length ? `${done}/${idea.tasks.length} tasks` : escapeHTML(idea.curiosity || "Just Curious");
   return `<article class="idea-card" style="--category-color:${categoryColors[idea.category] || "#74d2c6"};animation-delay:${Math.min(index, 8) * 45}ms">
     <div class="idea-card-top">${categoryChip(idea.category)}<div style="display:flex;align-items:center;gap:5px">${idea.favorite ? '<span class="favorite-mark" aria-label="Favorite">★</span>' : ""}${statusPill(idea.status)}</div></div>
-    <h3>${escapeHTML(idea.title)}</h3>
+    <h3><button class="card-title-button" data-action="open-idea" data-id="${escapeHTML(idea.id)}">${escapeHTML(idea.title)}</button></h3>
     <p class="description">${escapeHTML(idea.description || "No description yet. Every rabbit hole starts somewhere.")}</p>
     <div class="card-meta"><span>${Math.round(idea.progress || 0)}% charted</span><span>${taskLabel}</span></div>
     ${progressBar(idea.progress)}
